@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/constants.dart';
 import 'home_page.dart';
 import 'new_task_page.dart';
+import 'edit_task.dart';
 
 void main() => runApp (MyApp());
 
@@ -11,16 +13,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Color(0xFFffffff),
-        accentColor: Color(0xFF1E4C6D),
+        backgroundColor: Colors.white,
+          primaryColor: kPrimaryColor,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: kAccentColor,
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: TextTheme(
-          bodyText1: TextStyle(color: Color(0xFF17414F)),
-          headline1: TextStyle(color: Color(0xFF17414F)),
+          bodyText1: TextStyle(color: kPrimaryColor),
+          headline1: TextStyle(color: kPrimaryColor),
 
         )
       ),
-      home: MyHomePage(title: ' '),
+      home: EditTask(title: ' '),
     );
   }
 }

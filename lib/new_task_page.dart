@@ -21,22 +21,21 @@ class _AddNewTaskState extends State<AddNewTask> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                    left: 0.0,
-                    top: 12.0,
-                    right: 5.0,
-                    bottom: 1.5,
-                  ),
-                  child: Text('Add new Task',
-                      style: TextStyle(
-                        color: Color(0xFF000000),
-                        fontSize: 24,
-                      ))),
-            ]),
+        backgroundColor: Colors.white,
+        title: SafeArea(
+          child: Container(
+              margin: EdgeInsets.only(
+                left: 0.0,
+                top: 0.0,
+                right: 0.0,
+                bottom: 1.5,
+              ),
+              child: Text('Add new Task',
+                  style: TextStyle(
+                    color: Color(0xFF000000),
+                    fontSize: 24,
+                  ))),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -85,6 +84,31 @@ class _AddNewTaskState extends State<AddNewTask> {
                   fontSize: 18,
                 ),)
           ),
+          Container(
+            height: 85,
+            margin: EdgeInsets.only(
+              left: 11.0,
+              top: 5.0,
+            ),
+            child: Expanded(
+              child: TableCalendar(
+                focusedDay: DateTime.now(),
+                firstDay: DateTime.utc(1980,01,01),
+                lastDay: DateTime.utc(2040,01,01),
+                calendarStyle: CalendarStyle(
+                  selectedDecoration: BoxDecoration(
+                    color: kAccentColor,
+                  ),
+                  selectedTextStyle: TextStyle(
+                    color: Colors.white
+                  )
+                ),
+                shouldFillViewport: false,
+                daysOfWeekHeight: 15.0,
+                onPageChanged: null,
+              ),
+            ),
+          )
         ],
       )
     );

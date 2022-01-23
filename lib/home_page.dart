@@ -21,33 +21,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                    left: 0.0,
-                    top: 12.0,
-                    right: 5.0,
-                    bottom: 0.0,
-                  ),
-                  child: Text('Today',
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 24,
-                      ))),
-              Container(
-                  margin: EdgeInsets.only(
-                    left: 0.0,
-                    top: 1.0,
-                    right: 5.0,
-                    bottom: 0.0,
-                  ),
-                  child: Text(
-                    DateFormat.yMMMMd().format(DateTime.now()),
-                    style: TextStyle(fontSize: 14),
-                  )),
-            ]),
+        backgroundColor: Colors.white,
+        title: AppBarTitle_Home(),
+        bottom: PreferredSize(
+          child: SafeArea(
+            child: Container(
+              margin: EdgeInsets.only(left: 15.0, top: 5.0),
+              width: double.infinity,
+              height: 25.0,
+              child: Text(
+                DateFormat.yMMMMd().format(DateTime.now()),
+                style: TextStyle(fontSize: 15, color: Colors.black),
+              ),
+            ),
+          ),
+          preferredSize: Size.fromHeight(25.0),
+        ),
         centerTitle: false,
       ),
       body: Column(
@@ -76,96 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Container(
-            height: 85,
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: kCardColor,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          margin: EdgeInsets.only(
-                            left: 15.0,
-                            top: 7.0,
-                            right: 0.0,
-                            bottom: 1.0,
-                          ),
-                          child: Text(
-                            'Task Title',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
-                          )),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(
-                          left: 0.0,
-                          top: 7.0,
-                          right: 10.0,
-                          bottom: 1.0,
-                        ),
-                        child: Text(
-                          '10:30 AM',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 14),
-                        )),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: 15.0,
-                        top: 6.0,
-                        right: 0.0,
-                        bottom: 1.0,
-                      ),
-                      child: Text(
-                        'Task Description',
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 16),
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: 3.0,
-                        top: 2.0,
-                        right: 0.0,
-                        bottom: 0.0,
-                      ),
-                      child: Icon(
-                        Icons.check_box_outline_blank,
-                        size: 20,
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(
-                          left: 3.0,
-                          top: 2.0,
-                          right: 0.0,
-                          bottom: 0.0,
-                        ),
-                        child: Text(
-                          'Mark as Completed',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                              color: kAccentColor),
-                        )),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          TaskCard(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -176,6 +76,125 @@ class _MyHomePageState extends State<MyHomePage> {
           size: 35,
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class TaskCard extends StatelessWidget {
+  const TaskCard({
+    Key key,
+  }) : super(key: key);
+
+  //String task_title = 'Task Title';
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 85,
+      margin: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: kCardColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                    margin: EdgeInsets.only(
+                      left: 15.0,
+                      top: 7.0,
+                      right: 0.0,
+                      bottom: 1.0,
+                    ),
+                    child: Text(
+                      'Task Title',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                    )),
+              ),
+              Container(
+                  margin: EdgeInsets.only(
+                    left: 0.0,
+                    top: 7.0,
+                    right: 10.0,
+                    bottom: 1.0,
+                  ),
+                  child: Text(
+                    '10:30 AM',
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal, fontSize: 14),
+                  )),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(
+                  left: 15.0,
+                  top: 6.0,
+                  right: 0.0,
+                  bottom: 1.0,
+                ),
+                child: Text(
+                  'Task Description',
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal, fontSize: 16),
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(
+                  left: 3.0,
+                  top: 2.0,
+                  right: 0.0,
+                  bottom: 0.0,
+                ),
+                child: Icon(
+                  Icons.check_box_outline_blank,
+                  size: 20,
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(
+                    left: 3.0,
+                    top: 2.0,
+                    right: 0.0,
+                    bottom: 0.0,
+                  ),
+                  child: Text(
+                    'Mark as Completed',
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                        color: kAccentColor),
+                  )),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AppBarTitle_Home extends StatelessWidget {
+  const AppBarTitle_Home({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Text('Today',
+          style: TextStyle(
+            color: kPrimaryColor,
+            fontSize: 25,
+          )
+      ),
     );
   }
 }
