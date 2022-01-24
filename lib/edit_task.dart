@@ -15,7 +15,6 @@ class EditTask extends StatefulWidget {
 }
 
 class _EditTaskState extends State<EditTask> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,18 +22,35 @@ class _EditTaskState extends State<EditTask> {
           elevation: 0,
           backgroundColor: Colors.white,
           title: SafeArea(
-            child: Container(
-                margin: EdgeInsets.only(
-                  left: 0.0,
-                  top: 0.0,
-                  right: 0.0,
-                  bottom: 1.5,
-                ),
-                child: Text('Edit Task',
-                    style: TextStyle(
-                      color: Color(0xFF000000),
-                      fontSize: 24,
-                    ))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    child: Text('Cancel', style:TextStyle(
+                      color: Colors.red,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    )
+                    ),
+                    onPressed: ()=>{},
+                  ),
+                  Text('Edit Task',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                      )
+                  ),
+                  TextButton(
+                    child: Text('Save', style: TextStyle(
+                      color: Colors.blueAccent,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                    onPressed: ()=>{},
+                  ),
+                ],
+              )
           ),
           centerTitle: true,
         ),
@@ -50,12 +66,13 @@ class _EditTaskState extends State<EditTask> {
                   'Task Title',
                   style: TextStyle(
                     fontSize: 18,
-                  ),)
-            ),
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
             Container(
               margin: EdgeInsets.all(10),
               height: 50,
-              child: AddTitle(),
+              child: EditTitle(),
             ),
             Container(
                 margin: EdgeInsets.only(
@@ -66,65 +83,87 @@ class _EditTaskState extends State<EditTask> {
                   'Task Description',
                   style: TextStyle(
                     fontSize: 18,
-                  ),)
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
             ),
             Container(
               margin: EdgeInsets.all(10),
               height: 50,
-              child: AddDescription(),
+              child: EditDescription(),
             ),
-            Container(
-                margin: EdgeInsets.only(
-                  left: 11.0,
-                  top: 25.0,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    margin: EdgeInsets.only(
+                      left: 11.0,
+                      top: 5.0,
+                    ),
+                    child: Text(
+                      'Task Date and Time',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
                 ),
-                child: Text(
-                  'Task Date',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),)
+                Container(
+                    height: 35,
+                    width: 110,
+                    margin: EdgeInsets.only(right: 10.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: TimeOfDay(hour: 12, minute: 0).format(context).toString(),
+                        fillColor: Colors.black,
+                        hintStyle: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder:
+                        OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                    )
+                ),
+              ],
             ),
-            Container(
-              height: 85,
-              margin: EdgeInsets.only(
-                left: 11.0,
-                top: 5.0,
-              ),
-              child: Expanded(
+            Expanded(
+              child: Container(
+                //margin: EdgeInsets.only(),
                 child: TableCalendar(
                   focusedDay: DateTime.now(),
-                  firstDay: DateTime.utc(1980,01,01),
-                  lastDay: DateTime.utc(2040,01,01),
+                  firstDay: DateTime.now(),
+                  lastDay: DateTime.utc(2040, 01, 01),
                   calendarStyle: CalendarStyle(
+                      selectedTextStyle: TextStyle(color: Colors.white),
                       selectedDecoration: BoxDecoration(
-                        color: kAccentColor,
-                      ),
-                      selectedTextStyle: TextStyle(
-                          color: Colors.white
+                        borderRadius: BorderRadius.circular(0.0),
                       )
                   ),
-                  shouldFillViewport: false,
+                  shouldFillViewport: true,
                   daysOfWeekHeight: 15.0,
                   onPageChanged: null,
                 ),
               ),
-            )
+            ),
           ],
         )
     );
   }
 }
 
-class AddTitle extends StatefulWidget {
-  const AddTitle({
+class EditTitle extends StatefulWidget {
+  const EditTitle({
     Key key,
   }) : super(key: key);
 
   @override
-  _AddTitleState createState() => _AddTitleState();
+  _EditTitleState createState() => _EditTitleState();
 }
 
-class _AddTitleState extends State<AddTitle> {
+class _EditTitleState extends State<EditTitle> {
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -136,26 +175,24 @@ class _AddTitleState extends State<AddTitle> {
         fillColor: Colors.black,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.grey)
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+            borderSide: BorderSide(color: Colors.grey)),
+        focusedBorder:
+        OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
   }
 }
 
-class AddDescription extends StatefulWidget {
-  const AddDescription({
+class EditDescription extends StatefulWidget {
+  const EditDescription({
     Key key,
   }) : super(key: key);
 
   @override
-  _AddDescriptionState createState() => _AddDescriptionState();
+  _EditDescriptionState createState() => _EditDescriptionState();
 }
 
-class _AddDescriptionState extends State<AddDescription> {
+class _EditDescriptionState extends State<EditDescription> {
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -167,11 +204,9 @@ class _AddDescriptionState extends State<AddDescription> {
         fillColor: Colors.black,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.grey)
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+            borderSide: BorderSide(color: Colors.grey)),
+        focusedBorder:
+        OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
   }

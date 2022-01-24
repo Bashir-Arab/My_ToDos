@@ -15,102 +15,141 @@ class AddNewTask extends StatefulWidget {
 }
 
 class _AddNewTaskState extends State<AddNewTask> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: SafeArea(
-          child: Container(
-              margin: EdgeInsets.only(
-                left: 0.0,
-                top: 0.0,
-                right: 0.0,
-                bottom: 1.5,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                child: Text('Cancel', style:TextStyle(
+              color: Colors.red,
+                fontSize: 15,
+                  fontWeight: FontWeight.bold,
+              )
+                ),
+                onPressed: ()=>{},
               ),
-              child: Text('Add new Task',
+              Text('Add New Task',
                   style: TextStyle(
                     color: Color(0xFF000000),
                     fontSize: 24,
-                  ))),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(
-              left: 11.0,
-              top: 10.0,
-            ),
-              child: Text(
-                  'Task Title',
-              style: TextStyle(
-                fontSize: 18,
-              ),)
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            height: 50,
-            child: AddTitle(),
-          ),
-          Container(
-              margin: EdgeInsets.only(
-                left: 11.0,
-                top: 10.0,
-              ),
-              child: Text(
-                'Task Description',
-                style: TextStyle(
-                  fontSize: 18,
-                ),)
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            height: 50,
-            child: AddDescription(),
-          ),
-          Container(
-              margin: EdgeInsets.only(
-                left: 11.0,
-                top: 25.0,
-              ),
-              child: Text(
-                'Task Date',
-                style: TextStyle(
-                  fontSize: 18,
-                ),)
-          ),
-          Container(
-            height: 85,
-            margin: EdgeInsets.only(
-              left: 11.0,
-              top: 5.0,
-            ),
-            child: Expanded(
-              child: TableCalendar(
-                focusedDay: DateTime.now(),
-                firstDay: DateTime.utc(1980,01,01),
-                lastDay: DateTime.utc(2040,01,01),
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: kAccentColor,
-                  ),
-                  selectedTextStyle: TextStyle(
-                    color: Colors.white
                   )
+              ),
+              TextButton(
+                  child: Text('Save', style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  ),
+                  onPressed: ()=>{},
+              ),
+            ],
+          )
+          ),
+          centerTitle: true,
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+                margin: EdgeInsets.only(
+                  left: 11.0,
+                  top: 10.0,
                 ),
-                shouldFillViewport: false,
-                daysOfWeekHeight: 15.0,
-                onPageChanged: null,
+                child: Text(
+                  'Task Title',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+            Container(
+              margin: EdgeInsets.all(10),
+              height: 50,
+              child: AddTitle(),
+            ),
+            Container(
+                margin: EdgeInsets.only(
+                  left: 11.0,
+                  top: 10.0,
+                ),
+                child: Text(
+                  'Task Description',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              height: 50,
+              child: AddDescription(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    margin: EdgeInsets.only(
+                      left: 11.0,
+                      top: 5.0,
+                    ),
+                    child: Text(
+                      'Task Date and Time',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                ),
+                Container(
+                    height: 35,
+                    width: 110,
+                    margin: EdgeInsets.only(right: 10.0),
+                    child: TextField(
+                      onTap: () => {},
+                      decoration: InputDecoration(
+                        hintText: TimeOfDay(hour: 9, minute: 0).format(context).toString(),
+                        fillColor: Colors.black,
+                        hintStyle: TextStyle(
+                          color: Colors.black54,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder:
+                        OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                    )
+                ),
+              ],
+            ),
+            Expanded(
+              child: Container(
+                child: TableCalendar(
+                  focusedDay: DateTime.now(),
+                  firstDay: DateTime.now(),
+                  lastDay: DateTime.utc(2025, 01, 01),
+                  calendarStyle: CalendarStyle(
+                      selectedTextStyle: TextStyle(color: Colors.white),
+                    selectedDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                    )
+                  ),
+                  shouldFillViewport: true,
+                  daysOfWeekHeight: 15.0,
+                  onPageChanged: null,
+                ),
               ),
             ),
-          )
-        ],
-      )
+          ],
+        )
     );
   }
 }
@@ -132,15 +171,13 @@ class _AddTitleState extends State<AddTitle> {
         color: Colors.grey,
       ),
       decoration: InputDecoration(
-        hintText: 'Add the Title',
+        hintText: 'Add Title',
         fillColor: Colors.black,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: Colors.grey)
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15)
-        ),
+            borderSide: BorderSide(color: Colors.grey)),
+        focusedBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
   }
@@ -167,11 +204,9 @@ class _AddDescriptionState extends State<AddDescription> {
         fillColor: Colors.black,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.grey)
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+            borderSide: BorderSide(color: Colors.grey)),
+        focusedBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
   }

@@ -46,8 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
             margin: EdgeInsets.only(left: 3.0, top: 10.0),
             child: DatePicker(
               DateTime.now(),
-              height: 75,
-              width: 65,
               initialSelectedDate: DateTime.now(),
               selectionColor: kPrimaryColor,
               selectedTextColor: Colors.white,
@@ -69,13 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {},
         tooltip: 'add_task',
         child: Icon(
           Icons.add,
           size: 35,
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
@@ -89,7 +87,7 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 85,
+      height: 90,
       margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: kCardColor,
@@ -104,7 +102,6 @@ class TaskCard extends StatelessWidget {
                     margin: EdgeInsets.only(
                       left: 15.0,
                       top: 7.0,
-                      right: 0.0,
                       bottom: 1.0,
                     ),
                     child: Text(
@@ -115,7 +112,6 @@ class TaskCard extends StatelessWidget {
               ),
               Container(
                   margin: EdgeInsets.only(
-                    left: 0.0,
                     top: 7.0,
                     right: 10.0,
                     bottom: 1.0,
@@ -133,7 +129,6 @@ class TaskCard extends StatelessWidget {
                 margin: EdgeInsets.only(
                   left: 15.0,
                   top: 6.0,
-                  right: 0.0,
                   bottom: 1.0,
                 ),
                 child: Text(
@@ -144,36 +139,27 @@ class TaskCard extends StatelessWidget {
               )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(
-                  left: 3.0,
-                  top: 2.0,
-                  right: 0.0,
-                  bottom: 0.0,
-                ),
-                child: Icon(
-                  Icons.check_box_outline_blank,
-                  size: 20,
-                ),
-              ),
-              Container(
-                  margin: EdgeInsets.only(
-                    left: 3.0,
-                    top: 2.0,
-                    right: 0.0,
-                    bottom: 0.0,
+          Expanded(
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                    padding: EdgeInsets.only(bottom: 1.5, left: 2.0),
+                    onPressed: () => {},
+                    icon: Icon(Icons.check_box_outline_blank),
+                    iconSize: 20,
                   ),
-                  child: Text(
+                  Text(
                     'Mark as Completed',
                     style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 14,
                         color: kAccentColor),
-                  )),
-            ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
